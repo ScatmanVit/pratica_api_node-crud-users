@@ -25,7 +25,8 @@ route.post('/register', async (req, res) => {
 
       const newUser = await User.create({
          name: name,
-         email: email
+         email: email,
+         hashPassword
       })
 
       res.status(201).json({ message: `Usuário criado com sucesso`, newUser })
