@@ -38,36 +38,29 @@ route.post('/register', async (req, res) => {
 
 /*Rota de Login de usuário*/
 route.post('/login', async (req, res) => {
-
-
    try {
-      const {email, password } = req.body
+      const { email, password } = req.body
       if (!email || !password) {
          return res.status(400).json({ message: "Dados não recebidos, por favor preencha todos os campos" })
       }
 
-         const user = await User.findOne({ email: email })
-         if (!user) {
-            return res.status(400).json({ message: 'Dados inválidos, por favor digite novamente o e-mail e a senha' })
-         }
-         const isMatch = await bcrypt.compare(password, user.password)
-         if (!isMatch) {
-            return res.status(400).json({ message: "Senha inválida, por favor digite novamente" })
-         }
-
-         const token = jwt.sign({ id: user._id }, jwt_secret, { expiresIn: '2m' });
-
-         const userRetorno = {
-            email: user.email,
-            token: token
-         }
-         res.status(200).json({ message: "Logado com sucesso!", userRetorno })
-
-      } catch (err) {
-         res.status(500).json({ message: "Erro no servidor, por favor tente novamente" })
-         console.error(`Ocorreu um erro no login: ${err.stack || err}`);
+      const user = await User.findOne({ email: email })
+      if (!user) {
+         return res.status(400).json({ message: 'Dados inválidos, por favor digite novamente o e-mail e a senha' })
       }
-   })
+      const isMatch = await bcrypt.compare(password, user.password)
+      if (!isMatch) {
+         return res.status(400).json({ message: "Senha inválida, por favor digite novamente" })
+      }
+
+      const token = jwt.sign({ id: user._id }, jwt_secret, { expiresIn: '2m' });
+
+      res.status(200).json({message: "Usuário logado com sucesso!", token})
+   } catch (err) {
+      res.status(500).json({ message: "Erro no servidor, por favor tente novamente" })
+      console.error(`Ocorreu um erro no login: ${err.stack || err}`);
+   }
+})
 
 
 

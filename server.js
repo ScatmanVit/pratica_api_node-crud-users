@@ -3,7 +3,9 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import Connect from './connection/connection.js'
 import userPublicRoutes from './routes/public/user.public.js'
-// import userPrivateRoutes from './routes/private/user.private.js'
+import userPrivateRoutes from './routes/private/user.private.js'
+import auth from './middlwares/auth.middlwares.js'
+
 dotenv.config()
 
 const url_database = process.env.URL_DATABASE
@@ -13,7 +15,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/', userPublicRoutes)
-// app.use('/', userPrivateRoutes) 
+app.use('/', auth, userPrivateRoutes) 
 
 
 Connect(url_database)
