@@ -17,6 +17,11 @@ const userSchema = new Schema({
       type: String,
       required: true
    },
+   role: {
+      type: String,
+      required: false,
+      default: "User"
+   },
    createdAt: {
       type: Date,
       default: Date.now()

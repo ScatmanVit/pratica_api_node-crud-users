@@ -26,13 +26,15 @@ route.post('/register', async (req, res) => {
       const newUser = await User.create({
          name: name,
          email: email,
-         hashPassword
+         password: hashPassword
       })
 
       res.status(201).json({ message: `Usuário criado com sucesso`, newUser })
    } catch (err) {
       res.status(500).json({ message: "Não foi possível criar usuário, erro no servidor" })
       console.error(err)
+   } finally {
+      console.log("Rota REGISTRO acessada")
    }
 })
 
@@ -53,15 +55,16 @@ route.post('/login', async (req, res) => {
          return res.status(400).json({ message: "Senha inválida, por favor digite novamente" })
       }
 
-      const token = jwt.sign({ id: user._id }, jwt_secret, { expiresIn: '2m' });
+      const token = jwt.sign({ id: user._id }, jwt_secret, { expiresIn: '5m' });
 
       res.status(200).json({message: "Usuário logado com sucesso!", token})
    } catch (err) {
       res.status(500).json({ message: "Erro no servidor, por favor tente novamente" })
       console.error(`Ocorreu um erro no login: ${err.stack || err}`);
+   } finally {
+      console.log("Rota LOGIN acessada")
    }
 })
-
 
 
 export default route;
