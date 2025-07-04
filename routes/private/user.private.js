@@ -5,7 +5,7 @@ import User from '../../models/user.model.js'
 router.get('/list-users', async (req, res) => {
    try {
       const users = await User.find({})
-      // aqui o length é usado porque o mongoose retorna um array [], portanto o certo é verificar a quantidade
+      // aqui o length é usado porque o mongoose retorna um array [], portanto o certo é verificar a quantidade/tamanho
       if (users.length === 0) {
          return res.status(404).json({ message: "Nenhum usuário encontrado" })
       }
