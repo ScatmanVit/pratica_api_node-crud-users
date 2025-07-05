@@ -50,25 +50,20 @@ pratica_api_node-crud-users/
 ## 🚀 Como Executar
 
 1. Clone o repositório:
-```bash
 git clone https://github.com/seu-usuario/pratica_api_node-crud-users.git
 
-2. Instale as dependências:
-```bash
+3. Instale as dependências:
 npm install
 
 3. Configure as variáveis de ambiente:
 Crie um arquivo .env na raiz do projeto com o conteúdo:
 
-```bash
 .env
 URL_DATABASE=sua_string_de_conexao_mongodb
 JWT_SECRET=aua_chave_secreta
 PORT=sua_porta
 
 Inicie o servidor:
-
-```bash
 npm run dev
 
 ---
