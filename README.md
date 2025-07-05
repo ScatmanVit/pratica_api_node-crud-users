@@ -31,44 +31,52 @@ Este projeto é uma API RESTful para gerenciamento de usuários com operações 
 ---
 
 ## 📂 Estrutura de Diretórios
+```plaintext
 pratica_api_node-crud-users/
-├── config/ # Configurações do servidor
-├── connection/ # Configurações de conexão com banco de dados
-├── controllers/ # Lógica dos endpoints
-├── middlewares/ # Middlewares de autenticação
-├── models/ # Modelos de dados
-├── routes/ # Definição das rotas
-├── services/ # Serviços e regras de negócio
-├── .gitignore # Arquivos ignorados pelo Git
-├── package.json # Dependências e scripts
+├── config/           # Configurações do servidor
+├── connection/       # Configurações de conexão com banco de dados
+├── controllers/      # Lógica dos endpoints
+├── middlewares/      # Middlewares de autenticação
+├── models/           # Modelos de dados
+├── routes/           # Definição das rotas
+├── services/         # Serviços e regras de negócio
+├── .gitignore        # Arquivos ignorados pelo Git
+├── package.json      # Dependências e scripts
 ├── package-lock.json
-├── server.js # Ponto de entrada da aplicação
-└── README.md # Este arquivo
+├── server.js         # Ponto de entrada da aplicação
+└── README.md         # Este arquivo
+```
 
 ---
 
 ## 🚀 Como Executar
 
 1. Clone o repositório:
+```plaintext
 git clone https://github.com/seu-usuario/pratica_api_node-crud-users.git
-
+```
 3. Instale as dependências:
+```plaintext
 npm install
+```
 
 3. Configure as variáveis de ambiente:
 Crie um arquivo .env na raiz do projeto com o conteúdo:
 
 .env
+```plaintext
 URL_DATABASE=sua_string_de_conexao_mongodb
 JWT_SECRET=aua_chave_secreta
 PORT=sua_porta
+```
 
 Inicie o servidor:
+```plaintext
 npm run dev
-
+```
 ---
 
-##🔒 Rotas da API
+## 🔒 Rotas da API
 | Método | Endpoint        | Descrição                     | Autenticação |
 | ------ | --------------- | ----------------------------- | ------------ |
 | POST   | /api/register   | Registra um novo usuário      | Não          |
@@ -79,14 +87,14 @@ npm run dev
 
 ---
 
-##🔜 Próximos Passos
+## 🔜 Próximos Passos
 - Integração com frontend React
 - Implementação de testes automatizados
 - Adição de sistema de roles/permissões
 - Paginação e filtros na listagem de usuários
 
 
-##👤 Autor
+## 👤 Autor
 Victor Ribeiro Baradel
 
 
