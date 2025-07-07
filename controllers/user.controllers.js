@@ -15,11 +15,11 @@ const createUserController = async (req, res) => {
    try {
       const userExist = await UserService.findUserByEmail(email)
       if(userExist) {
-         res.status(400).json({ message: `Este email já esta cadastrado no nome de usuário: [ ${userExist.name} ]` })
+         return res.status(400).json({ message: `Este email já esta cadastrado no nome de usuário: [ ${userExist.name} ]` })
       }
       const newUser = {
          name: name,
-         email: email,
+         email: email.replace(/\s+/g, ''),
          password: hashPassword
       }
       await UserService.createUserService(newUser)
@@ -52,7 +52,7 @@ const loginUserController = async (req, res) => {
          return res.status(400).json({ message: "Senha inválida, por favor digite novamente" })
       }
 
-      const token = jwt.sign({ id: user._id }, jwt_secret, { expiresIn: '5m' });
+      const token = jwt.sign({ id: user._id, role: user.role }, jwt_secret, { expiresIn: '5m' });
       res.status(200).json({ message: "Usuário logado com sucesso!", token })
    } catch (err) {
       res.status(500).json({ message: "Erro no servidor, por favor tente novamente" })
@@ -60,7 +60,65 @@ const loginUserController = async (req, res) => {
    }
 }
 
+
+const listUsersController = async (req, res) => {
+   try {
+      const users = await UserService.listUsersService()
+      if (users.length === 0) {
+         return res.status(404).json({ message: "Nenhum usuário encontrado" })
+      }
+      res.status(200).json({ message: "Usuários listados:", users })
+   } catch (err) {
+      res.status(500).json({ message: "Erro no servidor, na listagem de usuários" })
+      console.error(`Ocorreu erro ao listar usuários: \n${err}`)
+   } 
+}
+
+
+const deleteUserController = async (req, res) => {
+   const idUser = req.params.id
+   try {
+      const user = await UserService.deleteUserService(idUser)
+      if (!user) {
+         return res.status(404).json({ message: "Esse usuário não existe com esse ID ou já foi deletado do banco de dados" })
+      }
+
+      res.status(200).json({ message: `Usuário deletado com sucesso` })
+   } catch (err) {
+      res.status(500).json({ message: "Erro no servidor, por favor, tente no novamente" })
+      console.error(`Ocorreu erro ao deletar usuário: \n${err}`)
+   }
+}
+
+const updateUserController = async (req ,res) => {
+   const idUpdate = req.params.id
+   const { name, email, role } = req.body
+   if (!name || !email || !role) {
+      return res.status(400).json({message: "Por favor preencha os novos dados do usuário"})
+   }
+   const updateData = {
+      name: name,
+      email: email.replace(/\s+/g, ''),
+      role: role
+   }                                           
+   try{
+      const user = await UserService.updateUserService(idUpdate, updateData)
+      if(user?.error) {
+         return res.status(400).json({ message: user.error })
+      }
+
+      res.status(200).json({ message: "Usuário alterado com sucesso"})
+   }catch (err) {
+         res.status(500).json({message: "Ocorreu um erro no servidor"})
+         console.error(`Ocorreu algum erro no servidor: \n${err}`)
+   }
+}
+
+
 export default {
    createUserController,
-   loginUserController
+   loginUserController,
+   listUsersController,
+   deleteUserController,
+   updateUserController
 }
