@@ -1,4 +1,5 @@
 import UserService from '../services/user.services.js'
+import captalize from '../utils/captalize.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
@@ -23,11 +24,8 @@ const createUserController = async (req, res) => {
          password: hashPassword
       }
       await UserService.createUserService(newUser)
-      const user = {
-         name: name,
-         email: email
-      }
-      res.status(201).json({ message: `Usuário criado com sucesso`, user })
+
+      res.status(201).json({ message: `Cadastro realizado ${captalize(name)}!`})
    } catch (err) {
       res.status(500).json({ message: "Não foi possível criar usuário, erro no servidor" })
       console.error(err)
