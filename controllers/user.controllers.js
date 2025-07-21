@@ -49,9 +49,9 @@ const loginUserController = async (req, res) => {
       if (!isMatch) {
          return res.status(400).json({ message: "Senha inválida, por favor digite novamente" })
       }
-
-      const token = jwt.sign({ id: user._id, role: user.role }, jwt_secret, { expiresIn: '5m' });
-      res.status(200).json({ message: "Usuário logado com sucesso!", token })
+      const role = user.role.toLowerCase()
+      const token = jwt.sign({ id: user._id, role: role }, jwt_secret, { expiresIn: '1d' });
+      res.status(200).json({ message: "Usuário logado com sucesso!", token, role })
    } catch (err) {
       res.status(500).json({ message: "Erro no servidor, por favor tente novamente" })
       console.error(`Ocorreu um erro no login: ${err.stack || err}`);

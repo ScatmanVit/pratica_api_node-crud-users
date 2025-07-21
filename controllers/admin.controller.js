@@ -25,7 +25,7 @@ const deleteUserController = async (req, res) => {
 
       res.status(200).json({ message: `Usuário deletado com sucesso` })
    } catch (err) {
-      res.status(500).json({ message: "Erro no servidor, por favor, tente no novamente" })
+      res.status(500).json({ message: "Erro no servidor, por favor tente no novamente" })
       console.error(`Ocorreu erro ao deletar usuário: \n${err}`)
    }
 }
@@ -54,9 +54,17 @@ const updateUserController = async (req ,res) => {
    }
 }
 
+const logoutAdmController = (req, res) => {
+   try {
+      return res.status(200).json({ message: "Saindo.."});
+   } catch (err) {
+      return res.status(500).json({ message: "Ocorreu um erro no servidor"});
+   }
+}
 
 export default {
    listUsersController,
    updateUserController,
-   deleteUserController
+   deleteUserController,
+   logoutAdmController
 }
