@@ -12,7 +12,7 @@ const auth = (req, res, next) => {
       }
       const token_formated = token.replace('Bearer ', '')
       const decoded = jwt.verify(token_formated, jwt_secret)
-
+ 
       req.user = decoded
       next()
    } catch (err) {
