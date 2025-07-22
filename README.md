@@ -2,7 +2,7 @@
 
 Este projeto é uma API RESTful para gerenciamento de usuários com operações CRUD completas, implementando encriptação de senha com bcrypt e autenticação segura com tokens JWT.
 
----
+--- 
 
 ## ✨ Funcionalidades Principais
 
