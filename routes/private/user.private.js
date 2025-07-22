@@ -1,5 +1,9 @@
-/* criar a separação de controller para fazer
-   a utilização desse arquivo, porque no momento
-   os controller privados(que será criados) para o user
-   não tem um arquivo próprio
-*/
+import Router from 'express'
+const route = Router()
+import userPrivateController from '../../controllers/private/user.private.controller.js'
+
+route.get('/profile', userPrivateController.profileUserController)
+route.get('/logout', userPrivateController.logoutUserController)
+
+export default route;
+

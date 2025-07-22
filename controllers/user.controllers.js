@@ -61,5 +61,5 @@ const loginUserController = async (req, res) => {
 
 export default {
    createUserController,
-   loginUserController
+   loginUserController,
 }

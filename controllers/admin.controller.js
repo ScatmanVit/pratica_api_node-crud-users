@@ -32,13 +32,11 @@ const deleteUserController = async (req, res) => {
 
 const updateUserController = async (req ,res) => {
    const idUpdate = req.params.id
-   const { name, email, role } = req.body
-   if (!name || !email || !role) {
-      return res.status(400).json({message: "Por favor preencha os novos dados do usuário"})
+   const { role } = req.body
+   if (!role) {
+      return res.status(400).json({message: "Por favor preencha o novo dado do usuário"})
    }
    const updateData = {
-      name: name,
-      email: email.replace(/\s+/g, ''),
       role: role
    }                                           
    try{

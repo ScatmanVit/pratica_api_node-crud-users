@@ -13,5 +13,5 @@ const findUserByEmail = async (email) => {
 
 export default {
    createUserService,
-   findUserByEmail
+   findUserByEmail,
 }

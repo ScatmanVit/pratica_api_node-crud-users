@@ -10,15 +10,17 @@ const deleteUserService = async (idUser) => {
    const userDeleted = await User.findByIdAndDelete(idUser)
    return userDeleted
 }
+
+
 /*new: true é usado para retornar o objeto User já atualizado*/
 const updateUserService = async (idUpdate, updateData) => {
    // verifica se o id esta no formato certo no mongodb
    if (!mongoose.Types.ObjectId.isValid(idUpdate)) {
       return { error: 'ID inválido' }
    }
-   const existingUser = await findUserByEmail(updateData.email)
-   if (existingUser && existingUser._id.toString() !== idUpdate) {
-      return { error: `Esse email já está sendo usado: ${existingUser.email}` }
+   const existingUser = await findUserById(idUpdate)
+   if (!existingUser) {
+      return { error: `Não existe usuário com esse ID: ${idUpdate}` }
    }
 
    const userUpdated = await User.findByIdAndUpdate(
@@ -27,7 +29,7 @@ const updateUserService = async (idUpdate, updateData) => {
       { new: true }
    )
    if (!userUpdated) {
-      return { error: 'Não existe usuário com esse ID' }
+      return { error: `Não existe usuário com esse ID: ${idUpdate}` }
    }
    return userUpdated
 }
