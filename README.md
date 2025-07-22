@@ -23,28 +23,59 @@ Este projeto é uma API RESTful para gerenciamento de usuários com operações 
 
 - Node.js (Ambiente de execução)  
 - Express (Framework web)  
-- JWT (Autenticação por tokens)  
+- JWT (Autenticação por tokens)
+- MongoDB (Banco de dados)  
 - Mongoose (ODM para MongoDB)  
 - Bcrypt (Encriptação de senhas)  
-- Dotenv (Gerenciamento de variáveis de ambiente)  
+- Dotenv (Gerenciamento de variáveis de ambiente)
+- Insomnia (Para testes no desenvolvimento)  
 
 ---
 
 ## 📂 Estrutura de Diretórios
 ```plaintext
-pratica_api_node-crud-users/
-├── config/           # Configurações do servidor
-├── connection/       # Configurações de conexão com banco de dados
-├── controllers/      # Lógica dos endpoints
-├── middlewares/      # Middlewares de autenticação
-├── models/           # Modelos de dados
-├── routes/           # Definição das rotas
-├── services/         # Serviços e regras de negócio
-├── .gitignore        # Arquivos ignorados pelo Git
-├── package.json      # Dependências e scripts
+API-NODE_CRUD_USERS/
+├── config/                  # Arquivos de configuração (variáveis, setups)
+│   └── app.js               # Configuração principal do app (middlewares globais, etc.)
+│
+├── connection/              # Conexão com banco de dados
+│   └── connection.js        # Setup da conexão com MongoDB
+│
+├── controllers/             # Camada de controle das rotas
+│   ├── user.controllers.js  # Controladores públicos e gerais de usuários
+│   ├── admin.controller.js  # Controladores para ações de administrador
+│   └── private/             # Controladores privados
+│       └── user.private.controller.js
+│
+├── middlewares/             # Middlewares de autenticação/validação
+│   ├── auth.middlewares.js  # Verificação de JWT, roles, etc.
+│   └── validation.middlewares.js  # Validações de inputs
+│
+├── models/                  # Modelos de dados (Mongoose Schemas)
+│   └── user.model.js
+│
+├── routes/                  # Rotas separadas por contexto
+│   ├── public/
+│   │   └── user.public.js   # Rotas públicas (login, cadastro)
+│   └── private/
+│       ├── admin.private.js # Rotas privadas do admin
+│       └── user.private.js  # Rotas privadas do usuário
+│
+├── services/                # Lógica de negócio (chamada pelos controllers)
+│   ├── admin.services.js
+│   ├── user.services.js
+│   └── private/
+│       └── user.private.services.js
+│
+├── utils/                   # Funções utilitárias
+│   └── capitalize.js
+│
+├── .env                     # Variáveis de ambiente (chaves, configs)
+├── .gitignore               # Ignora node_modules, env, etc.
+├── package.json             # Dependências e scripts
 ├── package-lock.json
-├── server.js         # Ponto de entrada da aplicação
-└── README.md         # Este arquivo
+├── README.md                # Documentação inicial
+└── server.js                # Ponto inicial da aplicação
 ```
 
 ---
@@ -55,6 +86,7 @@ pratica_api_node-crud-users/
 ```plaintext
 git clone https://github.com/seu-usuario/pratica_api_node-crud-users.git
 ```
+
 3. Instale as dependências:
 ```plaintext
 npm install
@@ -79,22 +111,17 @@ npm run dev
 ## 🔒 Rotas da API
 | Método | Endpoint        | Descrição                     | Autenticação |
 | ------ | --------------- | ----------------------------- | ------------ |
-| POST   | /api/register   | Registra um novo usuário      | Não          |
-| POST   | /api/login      | Autentica e retorna token JWT | Não          |
-| GET    | /api/users      | Lista todos os usuários       | Sim (JWT)    |
-| PUT    | /api/users/\:id | Atualiza um usuário           | Sim (JWT)    |
-| DELETE | /api/users/\:id | Exclui um usuário             | Sim (JWT)    |
+| POST   | /register   | Registra um novo usuário      | Não          |
+| POST   | /login      | Autentica e retorna token JWT | Não          |
+| GET    | /admin/list-users      | Lista todos os usuários       | Sim (JWT)    |
+| PUT    | /admin/update/user/:id | Atualiza um usuário           | Sim (JWT)    |
+| DELETE | /admin/update/user/:id | Exclui um usuário             | Sim (JWT)    |
+| GET | /logout |                   Termina a sessão de um usuário| Sim (JWT)    |
 
 ---
 
-## 🔜 Próximos Passos
-- Integração com frontend React
-- Implementação de testes automatizados
-- Adição de sistema de roles/permissões
-- Paginação e filtros na listagem de usuários
-
-
 ## 👤 Autor
 Victor Ribeiro Baradel
+Feito com ☕
 
 
